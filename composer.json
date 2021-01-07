@@ -1,0 +1,54 @@
+{
+    "name": "wdev-rs/laravel-datagrid",
+    "description": "Laravel integration for Grid.js server side processing",
+    "keywords": [
+        "wdev-rs",
+        "laravel-datagrid"
+    ],
+    "homepage": "https://github.com/wdev-rs/laravel-datagrid",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Daniel Werner",
+            "email": "daniel@wdev.rs",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4",
+        "illuminate/support": "^6.0|^7.0|^8.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0|^5.0|^6.0",
+        "phpunit/phpunit": "^8.0|^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "WdevRs\\LaravelDatagrid\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "WdevRs\\LaravelDatagrid\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "WdevRs\\LaravelDatagrid\\LaravelDatagridServiceProvider"
+            ],
+            "aliases": {
+                "LaravelDatagrid": "WdevRs\\LaravelDatagrid\\LaravelDatagridFacade"
+            }
+        }
+    }
+}
