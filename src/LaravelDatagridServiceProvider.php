@@ -15,7 +15,7 @@ class LaravelDatagridServiceProvider extends ServiceProvider
          * Optional methods to load your package assets
          */
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'laravel-datagrid');
-        // $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravel-datagrid');
+         $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravel-datagrid');
         // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         // $this->loadRoutesFrom(__DIR__.'/routes.php');
 
@@ -25,9 +25,14 @@ class LaravelDatagridServiceProvider extends ServiceProvider
             ], 'config');
 
             // Publishing the views.
-            /*$this->publishes([
+            $this->publishes([
                 __DIR__.'/../resources/views' => resource_path('views/vendor/laravel-datagrid'),
-            ], 'views');*/
+            ], 'views');
+
+            // Publishing the js.
+            $this->publishes([
+                __DIR__.'/../resources/js' => resource_path('js/vendor/laravel-datagrid'),
+            ], 'js');
 
             // Publishing assets.
             /*$this->publishes([
