@@ -1,11 +1,11 @@
-# Very short description of the package
+# Laravel integration for the Grid.js
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/wdev-rs/laravel-datagrid.svg?style=flat-square)](https://packagist.org/packages/wdev-rs/laravel-datagrid)
 [![Build Status](https://img.shields.io/travis/wdev-rs/laravel-datagrid/master.svg?style=flat-square)](https://travis-ci.org/wdev-rs/laravel-datagrid)
 [![Quality Score](https://img.shields.io/scrutinizer/g/wdev-rs/laravel-datagrid.svg?style=flat-square)](https://scrutinizer-ci.com/g/wdev-rs/laravel-datagrid)
 [![Total Downloads](https://img.shields.io/packagist/dt/wdev-rs/laravel-datagrid.svg?style=flat-square)](https://packagist.org/packages/wdev-rs/laravel-datagrid)
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
+This package is a Laravel integration for the [Grid.js](https://gridjs.io/). The packages makes it easy to create data-grid for your Laravel application, for example admin panel lists.
 
 ## Installation
 
