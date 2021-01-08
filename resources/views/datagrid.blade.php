@@ -1,8 +1,5 @@
-@extends('layouts.app')
+<data-grid
+    base-url={{$baseUrl}}
+    :columns="{{json_encode($columns)}}"
+></data-grid>
 
-@section('content')
-    <data-grid
-        base-url={{$baseUrl}}
-        :columns="{{json_encode($columns)}}"
-    ></data-grid>
-@endsection

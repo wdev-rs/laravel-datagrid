@@ -1,12 +1,13 @@
 <template>
-    <div class="data-grid px-4 mt-4">
+    <div class="data-grid">
         <grid ref="grid"
               :cols="cols"
               :search="search"
               :server="server"
               :pagination="pagination"
               :sort="sort"
-              :autoWidth="false"></grid>
+              :autoWidth="false">
+        </grid>
     </div>
 </template>
 
