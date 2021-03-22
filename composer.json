@@ -30,7 +30,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "WdevRs\\LaravelDatagrid\\Tests\\": "tests"
+            "WdevRs\\LaravelDatagrid\\Tests\\": "tests",
+            "WdevRs\\LaravelDatagrid\\Tests\\Database\\Factories\\": "tests/database/factories/"
         }
     },
     "scripts": {
