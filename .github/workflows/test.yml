@@ -17,8 +17,6 @@ jobs:
            php-version: 7.4
     - name: Install Dependencies
       run: composer update --no-interaction --prefer-source
-    - name: Directory Permissions
-      run: chmod -R 777 storage bootstrap/cache
     - name: Create Database
       run: |
         mkdir -p database
