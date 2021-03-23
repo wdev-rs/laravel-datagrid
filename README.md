@@ -6,6 +6,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/wdev-rs/laravel-datagrid.svg?style=flat-square)](https://packagist.org/packages/wdev-rs/laravel-datagrid)
 
 This package is a Laravel integration for the [Grid.js](https://gridjs.io/). The packages makes it easy to create data-grid for your Laravel application, for example admin panel lists.
+It covers the basic server side functionalities for Grid.js like search, sorting and pagination.
 
 ![Laravel DataGrid](https://raw.githubusercontent.com/wdev-rs/laravel-datagrid/master/resources/img/laravel-datagrid.png)
 
