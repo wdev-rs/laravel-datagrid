@@ -7,6 +7,8 @@
 
 This package is a Laravel integration for the [Grid.js](https://gridjs.io/). The packages makes it easy to create data-grid for your Laravel application, for example admin panel lists.
 
+![Laravel DataGrid](https://raw.githubusercontent.com/wdev-rs/laravel-datagrid/master/resources/img/laravel-datagrid.png)
+
 ## Installation
 
 You can install the package via composer:
