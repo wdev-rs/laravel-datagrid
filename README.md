@@ -1,7 +1,7 @@
 # Laravel integration for the Grid.js
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/wdev-rs/laravel-datagrid.svg?style=flat-square)](https://packagist.org/packages/wdev-rs/laravel-datagrid)
-[![Build Status](https://img.shields.io/travis/wdev-rs/laravel-datagrid/master.svg?style=flat-square)](https://travis-ci.org/wdev-rs/laravel-datagrid)
+[![Build Status](https://github.com/wdev-rs/laravel-datagrid/actions/workflows/test.yml/badge.svg)](https://github.com/wdev-rs/laravel-datagrid/actions/workflows/test.yml)
 [![Quality Score](https://img.shields.io/scrutinizer/g/wdev-rs/laravel-datagrid.svg?style=flat-square)](https://scrutinizer-ci.com/g/wdev-rs/laravel-datagrid)
 [![Total Downloads](https://img.shields.io/packagist/dt/wdev-rs/laravel-datagrid.svg?style=flat-square)](https://packagist.org/packages/wdev-rs/laravel-datagrid)
 
