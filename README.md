@@ -64,6 +64,27 @@ The `column` method is used to define the columns of the DataGrid, the argument 
   probably the most elegant way to do this is to include a blade view and render it.
 - `width` - optional, the with of the column
 
+When the DataGrid definition is ready, you can add it to the controller:
+
+```php
+    public function index(CategoriesDataGrid $dataGrid, Request $request)
+    {
+        return $dataGrid->render();
+    }
+```
+
+If the `render` method is called without arguments it will use the default view `resources/views/vendor/laravel-datagrid/datagrid.blade.php`, 
+or you can pass your own view and include the DataGrid blade file there:
+
+```php
+    public function index(CategoriesDataGrid $dataGrid, Request $request)
+    {
+        return $dataGrid->render('admin.common.index');
+    }
+```
+
+## Frontend customisations
+
 The frontend component of the DataGrid can be found in the `resources/js/vendor/laravel-datagrid/components/DataGrid.vue`
 By default DataGrid comes with one row action, which is the delete action. This action can be found in the following file: 
 `resources/js/vendor/laravel-datagrid/actions/delete.js`
