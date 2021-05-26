@@ -1,8 +1,6 @@
 name: Laravel DataGrid Tests
 
-on:
-  push:
-    branches: [ master ]
+on: [push, pull_request]
 
 jobs:
   run-tests:
