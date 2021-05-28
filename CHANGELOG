@@ -2,5 +2,18 @@
 VERSION 0  INITIAL RELEASE
 ==========================
 
+   Version 0.2 - PHP8 support
+      28/05/2021 05:53  0.2.0  initial release
+         e098981 Remove package-lock
+         5f41d3e Run tests on push and pull request
+         1a1dfa8 Remove travis
+         d0ec500 Add php8 to test runner
+         8e794e1 Make the Package php 8 compatible
+         a56d295 Update README.md
+         c2e3b4c Update README.md
+         73c0510 Create laravel-datagrid.png
+         75aaf7c Update README.md
+         8146a66 Add test badge
+
    Version 0.1 - Initial release
       23/03/2021 19:22  0.1.0  initial release
