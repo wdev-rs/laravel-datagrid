@@ -1,6 +1,5 @@
 <?php
 
-
 namespace WdevRs\LaravelDatagrid\DataGrid;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -44,7 +43,6 @@ class DataGrid
                 'data' => $this->format($paginator->items()),
                 'total' => $paginator->total()
             ];
-
         }
 
         return view($view, [
@@ -55,12 +53,12 @@ class DataGrid
 
     protected function format($data)
     {
-        return collect($data)->map(function($item){
+        return collect($data)->map(function ($item) {
             $formatted = $item->toArray();
-            foreach($this->formatters as $field => $formatter){
-               if (is_callable($formatter)) {
-                   $formatted[$field] = $formatter($item);
-               }
+            foreach ($this->formatters as $field => $formatter) {
+                if (is_callable($formatter)) {
+                    $formatted[$field] = $formatter($item);
+                }
             }
 
             return $formatted;
@@ -73,11 +71,10 @@ class DataGrid
             return $this;
         }
 
-        $this->query->where(function(Builder $query) use($search){
-            foreach ($this->columns as $column){
+        $this->query->where(function (Builder $query) use ($search) {
+            foreach ($this->columns as $column) {
                 $this->query->orWhere($column['id'], 'like', '%' . $search . '%');
             }
-
         });
 
         return $this;
@@ -89,7 +86,7 @@ class DataGrid
             return $this;
         }
 
-        collect($orders)->each(fn($field, $index) => $this->query->orderBy($field, $dirs[$index] ?? 'asc'));
+        collect($orders)->each(fn ($field, $index) => $this->query->orderBy($field, $dirs[$index] ?? 'asc'));
 
         return $this;
     }

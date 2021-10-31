@@ -15,7 +15,7 @@ class LaravelDatagridServiceProvider extends ServiceProvider
          * Optional methods to load your package assets
          */
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'laravel-datagrid');
-         $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravel-datagrid');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravel-datagrid');
         // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         // $this->loadRoutesFrom(__DIR__.'/routes.php');
 
@@ -59,7 +59,7 @@ class LaravelDatagridServiceProvider extends ServiceProvider
 
         // Register the main class to use with the facade
         $this->app->singleton('laravel-datagrid', function () {
-            return new LaravelDatagrid;
+            return new LaravelDatagrid();
         });
     }
 }
