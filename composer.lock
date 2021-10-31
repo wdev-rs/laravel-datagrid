@@ -4206,21 +4206,21 @@
         },
         {
             "name": "daniel-werner/php-quality-tools",
-            "version": "2.0.0",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/daniel-werner/php-quality-tools.git",
-                "reference": "3b2224f4988ce457f3e14e247a8f1a8205ba3e19"
+                "reference": "205558333ef66fa6b66a99c434f39acb50f2396c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/daniel-werner/php-quality-tools/zipball/3b2224f4988ce457f3e14e247a8f1a8205ba3e19",
-                "reference": "3b2224f4988ce457f3e14e247a8f1a8205ba3e19",
+                "url": "https://api.github.com/repos/daniel-werner/php-quality-tools/zipball/205558333ef66fa6b66a99c434f39acb50f2396c",
+                "reference": "205558333ef66fa6b66a99c434f39acb50f2396c",
                 "shasum": ""
             },
             "require": {
                 "friendsofphp/php-cs-fixer": "^3.1",
-                "php": "^7.1",
+                "php": "^7.1|^8.0",
                 "phpmd/phpmd": "^2.10",
                 "phpstan/phpstan": "^0.12.99",
                 "squizlabs/php_codesniffer": "^3.6"
@@ -4260,9 +4260,9 @@
             ],
             "support": {
                 "issues": "https://github.com/daniel-werner/php-quality-tools/issues",
-                "source": "https://github.com/daniel-werner/php-quality-tools/tree/2.0.0"
+                "source": "https://github.com/daniel-werner/php-quality-tools/tree/2.1.0"
             },
-            "time": "2021-10-31T15:48:09+00:00"
+            "time": "2021-10-31T15:54:33+00:00"
         },
         {
             "name": "doctrine/annotations",
