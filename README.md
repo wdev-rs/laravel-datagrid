@@ -37,6 +37,7 @@ require('./vendor/laravel-datagrid/laravel-datagrid');
 ```
 
 ## Usage
+
 The base of this package is the `\WdevRs\LaravelDatagrid\DataGrid\DataGrid` class. This class is used to define the 
 columns and the behavior of the datagrid. While you can use this class directly from the controller, I'll 
 suggest extending it and create separate classes for each datagrid.
@@ -50,7 +51,7 @@ class CategoriesDataGrid extends DataGrid
      */
     public function __construct()
     {
-        $this->query(Category::query())
+        $this->fromQuery(Category::query())
             ->column('id', 'ID', null, 50)
             ->column('name', 'Name', function ($category) {
                 return view('admin.categories.actions.edit_link', ['category' => $category])->render();
@@ -59,13 +60,19 @@ class CategoriesDataGrid extends DataGrid
 }
 ```
 
-Using the `query` method you can define what should be the base query for the DataGrid. It accepts a Laravel Query Builder object.
+Using the `fromQuery` method you can define what should be the base query for the DataGrid. It accepts a Laravel Query Builder object.
 The `column` method is used to define the columns of the DataGrid, the argument are as follows:
 - `id` - the name of the field in the database
 - `name` - the label which should appear in the DataGrid column header
 - `formatter` - optional, callable allows you to format the display of the column. As you can see from the above example
   probably the most elegant way to do this is to include a blade view and render it.
 - `width` - optional, the with of the column
+
+### Data sources
+You can create data grid from different data sources:
+- Eloquent queries - use the fromQuery() method
+- Collections - use the fromCollection() method
+- Arrays - use the fromArray() method
 
 When the DataGrid definition is ready, you can add it to the controller:
 
