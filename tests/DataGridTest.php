@@ -96,7 +96,8 @@ class DataGridTest extends TestCase
     public function provideDataSources() {
         return [
             ['query'],
-            ['collection']
+            ['collection'],
+            ['array']
         ];
     }
 
@@ -115,9 +116,11 @@ class DataGridTest extends TestCase
 
         switch ($source){
             case 'query':
-                return  $dataGrid->query(TestProduct::query());
+                return  $dataGrid->fromQuery(TestProduct::query());
             case 'collection':
-                return $dataGrid->collection(TestProduct::query()->get());
+                return $dataGrid->fromCollection(TestProduct::query()->get());
+            case 'array':
+                return $dataGrid->fromArray(TestProduct::query()->get()->toArray());
         }
 
         return $dataGrid;

@@ -4,6 +4,7 @@ namespace WdevRs\LaravelDatagrid\DataGrid;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use WdevRs\LaravelDatagrid\DataGrid\DataSources\ArrayDataSource;
 use WdevRs\LaravelDatagrid\DataGrid\DataSources\CollectionDataSource;
 use WdevRs\LaravelDatagrid\DataGrid\DataSources\DataSourceContract;
 use WdevRs\LaravelDatagrid\DataGrid\DataSources\QueryDataSource;
@@ -15,16 +16,23 @@ class DataGrid
     protected array $columns;
     protected array $formatters;
 
-    public function query(Builder $query): self
+    public function fromQuery(Builder $query): self
     {
         $this->dataSource = app(QueryDataSource::class, ['query' => $query]);
 
         return $this;
     }
 
-    public function collection(Collection $data): self
+    public function fromCollection(Collection $data): self
     {
         $this->dataSource = app(CollectionDataSource::class, ['data' => $data]);
+
+        return $this;
+    }
+
+    public function fromArray(array $data): self
+    {
+        $this->dataSource = app(ArrayDataSource::class, ['data' => $data]);
 
         return $this;
     }
@@ -66,7 +74,7 @@ class DataGrid
     protected function format($data)
     {
         return collect($data)->map(function ($item) {
-            $formatted = $item->toArray();
+            $formatted = is_array($item) ? $item : $item->toArray();
             foreach ($this->formatters as $field => $formatter) {
                 if (is_callable($formatter)) {
                     $formatted[$field] = $formatter($item);
