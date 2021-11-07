@@ -2,6 +2,16 @@
 VERSION 0  INITIAL RELEASE
 ==========================
 
+   Version 0.3 - Collection and array data source support
+      07/11/2021 10:46  0.3.0  initial release
+         faced40 Update the documentation
+         1518f45 Fix sortin and add test
+         25e4d33 Implement array data source
+         bad2a67 Implement collection data source
+         d7ce3a7 Update php-quality-tools
+         8d93e08 Fix code style
+         f62f4f4 Use php-quality-tools
+
    Version 0.2 - PHP8 support
       28/05/2021 05:53  0.2.0  initial release
          e098981 Remove package-lock
