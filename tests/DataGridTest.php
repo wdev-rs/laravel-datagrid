@@ -38,7 +38,7 @@ class DataGridTest extends TestCase
      *
      * @dataProvider provideDataSources
      */
-    public function it_should_order_by_name(string $source)
+    public function it_should_order_by_name_asc(string $source)
     {
         $productZ = TestProduct::factory()->create(['name' => 'This is the Z product']);
         $productA = TestProduct::factory()->create(['name' => 'This is the A product']);
@@ -54,6 +54,28 @@ class DataGridTest extends TestCase
         $this->assertEquals($productA->name, $result['data'][0]['name']);
         $this->assertEquals($productB->name, $result['data'][1]['name']);
         $this->assertEquals($productZ->name, $result['data'][2]['name']);
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider provideDataSources
+     */
+    public function it_should_order_by_name_desc(string $source)
+    {
+        $productZ = TestProduct::factory()->create(['name' => 'This is the Z product']);
+        $productA = TestProduct::factory()->create(['name' => 'This is the A product']);
+        $productB = TestProduct::factory()->create(['name' => 'This is the B product']);
+
+        $dataGrid = $this->createDataGrid($source);
+        $this->createRequest(['order' => ['name'], 'dir' => ['desc']]);
+
+        $result = $dataGrid->render();
+
+        $this->assertCount(3, $result['data']);
+        $this->assertEquals($productA->name, $result['data'][2]['name']);
+        $this->assertEquals($productB->name, $result['data'][1]['name']);
+        $this->assertEquals($productZ->name, $result['data'][0]['name']);
     }
     /**
      * @test

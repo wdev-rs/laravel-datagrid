@@ -43,8 +43,8 @@ class CollectionDataSource implements DataSourceContract
 
     public function sort(?array $orders, ?array $dirs): void
     {
-        collect($orders)->each(function ($field, $index) {
-            if ($dirs[$index] ?? 'asc') {
+        collect($orders)->each(function ($field, $index) use ($dirs) {
+            if (($dirs[$index] ?? 'asc') === 'asc') {
                 $this->processedData = $this->processedData->sortBy($field);
             } else {
                 $this->processedData = $this->processedData->sortByDesc($field);
