@@ -54,7 +54,7 @@ class DataGrid
     {
         $request = request();
 
-        if ($request->ajax()) {
+        if ($request->wantsJson()) {
             $paginator = $this->search($request->search)
                         ->sort($request->order, $request->dir)
                         ->paginate($request->limit);
