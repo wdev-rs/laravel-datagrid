@@ -1,19 +1,22 @@
 import {url_append} from "./laravel-datagrid";
 export class ServerConfig {
-    static search() {
+    static search(keyword) {
         return {
             server: {
                 url: (prev, keyword) => url_append(prev, `search=${keyword}`),
-            }
+            },
+            debounceTimeout: 500,
+            keyword: keyword
         }
     }
 
-    static pagination() {
+    static pagination(page, limit) {
         return {
-            limit: 15,
+            limit: limit,
             server: {
                 url: (prev, page, limit) => url_append(prev, `limit=${limit}&page=${page + 1}`)
-            }
+            },
+            page: page,
         }
     }
 
@@ -31,19 +34,26 @@ export class ServerConfig {
         }
     }
 
-    static server() {
+    static server(rows) {
         return {
             url: this.baseUrl,
             data: (opts) => {
+                // When first loading the grid don't do ajax call
+                if (!ServerConfig.initComplete) {
+                    ServerConfig.initComplete = true;
+
+                    return rows;
+                }
+
                 return new Promise((resolve, reject) => {
                     axios.get(opts.url).then(result => {
-                        resolve({
-                            data: result.data.data,
-                            total: result.data.total
-                        });
+                        history.pushState({}, '', opts.url);
+                        resolve(result.data);
                     });
                 });
             }
         }
     }
 }
+
+ServerConfig.initComplete = false;
