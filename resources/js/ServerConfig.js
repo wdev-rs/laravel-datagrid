@@ -1,6 +1,13 @@
 import {url_append} from "./laravel-datagrid";
 export class ServerConfig {
-    static search(keyword) {
+
+    constructor(baseUrl, cols) {
+        this.cols = cols;
+        this.baseUrl = baseUrl;
+        this.initComplete = false;
+    }
+
+    search(keyword) {
         return {
             server: {
                 url: (prev, keyword) => url_append(prev, `search=${keyword}`),
@@ -10,7 +17,7 @@ export class ServerConfig {
         }
     }
 
-    static pagination(page, limit) {
+    pagination(page, limit) {
         return {
             limit: limit,
             server: {
@@ -20,7 +27,7 @@ export class ServerConfig {
         }
     }
 
-    static sort() {
+    sort() {
         return {
             multiColumn: true,
             server: {
@@ -34,13 +41,13 @@ export class ServerConfig {
         }
     }
 
-    static server(rows) {
+    server(rows) {
         return {
             url: this.baseUrl,
             data: (opts) => {
                 // When first loading the grid don't do ajax call
-                if (!ServerConfig.initComplete) {
-                    ServerConfig.initComplete = true;
+                if (!this.initComplete) {
+                    this.initComplete = true;
 
                     return rows;
                 }
@@ -55,5 +62,3 @@ export class ServerConfig {
         }
     }
 }
-
-ServerConfig.initComplete = false;
