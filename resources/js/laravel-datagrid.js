@@ -1,8 +1,7 @@
-Vue.component('data-grid', require('./components/DataGrid').default);
+import Vue from 'vue'
 
-import { GridGlobal } from 'gridjs-vue'
-
-Vue.use(GridGlobal)
+import DataGrid from "./components/DataGrid.vue";
+Vue.component('data-grid', DataGrid);
 
 export function url_append(url, query) {
     if (!url) {
