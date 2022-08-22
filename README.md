@@ -10,6 +10,10 @@ It covers the basic server side functionalities for Grid.js like search, sorting
 
 ![Laravel DataGrid](https://raw.githubusercontent.com/wdev-rs/laravel-datagrid/master/resources/img/laravel-datagrid.png)
 
+## Demo
+Please find the demo of the application [here](https://laravel-datagrid.wdev.rs) and the source code of the demo application
+[here](https://github.com/wdev-rs/laravel-datagrid-demo);
+
 ## Installation
 
 You can install the package via composer:
