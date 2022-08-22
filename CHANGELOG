@@ -2,6 +2,18 @@
 VERSION 0  INITIAL RELEASE
 ==========================
 
+   Version 0.4 - Laravel 9 compatibility and preload data without ajax
+      22/08/2022 19:42  0.4.0  initial release
+         968e91b Update README.md
+         7926282 #7 Fix if rows are undefined
+         5291f19 Add demo to the readme
+         a498912 Update README.md
+         8bc3b23 Fix laravel-datagrid.js to work with both webpack and vite
+         3e9cfac Don't use global import
+         1549139 #9 Make add Laravel 9 support
+         ff3602a Make server config non static class
+         7ec8000 #7 Load initial data via props not ajax
+
    Version 0.3 - Collection and array data source support
       07/11/2021 10:46  0.3.0  initial release
          faced40 Update the documentation
