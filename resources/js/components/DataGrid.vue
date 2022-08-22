@@ -23,32 +23,49 @@ export default {
         Grid
     },
     props: [
+        'rows',
         'columns',
         'baseUrl'
     ],
     data() {
         return {
-            cols: this.columns.map((col) => {col.formatter = (cell) => html(cell); return col;}).concat(
+            cols: this.columns.map((col) => {
+                col.formatter = (cell) => html(cell);
+                return col;
+            }).concat(
                 [{
                     name: 'Actions',
                     sort: false,
                     width: 50,
                     formatter: (cell, row) => {
                         return h('div', {className: "text-center"},
-                            deleteAction.call(this, row.cells[0].data,row.cells[1].data)
+                            deleteAction.call(this, row.cells[0].data, row.cells[1].data)
                         )
                     }
                 }]
             ),
-            search: ServerConfig.search.call(this),
-            pagination: ServerConfig.pagination.call(this),
-            sort: ServerConfig.sort.call(this),
-            server: ServerConfig.server.call(this)
+            serverConfig: new ServerConfig(this.baseUrl, this.columns),
+        }
+    },
+    computed: {
+        search() {
+            let rows = this.rows || {};
+            return this.serverConfig.search(rows.search || '');
+        },
+        pagination() {
+            let rows = this.rows || {};
+            return this.serverConfig.pagination((rows.currentPage || 1) - 1, rows.limit || 15);
+        },
+        sort() {
+            return this.serverConfig.sort()
+        },
+        server() {
+            let rows = this.rows || {};
+            return this.serverConfig.server(rows);
         }
     },
     mounted() {
     },
-    methods:{
-    }
+    methods: {}
 }
 </script>

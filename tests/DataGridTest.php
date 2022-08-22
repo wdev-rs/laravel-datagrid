@@ -126,6 +126,7 @@ class DataGridTest extends TestCase
     private function createRequest(array $params = []): void
     {
         $request = request();
+        $request->headers->set('accept', 'application/json');
         $request->headers->set('X-Requested-With', 'XMLHttpRequest');
         $request->merge($params);
     }

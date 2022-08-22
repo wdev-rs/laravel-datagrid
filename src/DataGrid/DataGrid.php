@@ -54,20 +54,16 @@ class DataGrid
     {
         $request = request();
 
-        if ($request->ajax()) {
-            $paginator = $this->search($request->search)
-                        ->sort($request->order, $request->dir)
-                        ->paginate($request->limit);
 
-            return [
-                'data' => $this->format($paginator->items()),
-                'total' => $paginator->total()
-            ];
+
+        if ($request->expectsJson()) {
+            return $this->getData($request);
         }
 
         return view($view, [
             'baseUrl' => $request->url(),
-            'columns' => $this->columns
+            'columns' => $this->columns,
+            'rows' => $this->getData($request)
         ]);
     }
 
@@ -110,5 +106,26 @@ class DataGrid
     protected function paginate($limit)
     {
         return $this->dataSource->paginate($limit);
+    }
+
+    /**
+     * @param $request
+     * @return array
+     */
+    private function getData($request): array
+    {
+        $paginator = $this->search($request->search)
+            ->sort($request->order, $request->dir)
+            ->paginate($request->limit);
+
+        return [
+            'data' => $this->format($paginator->items()),
+            'total' => $paginator->total(),
+            'currentPage' => $paginator->currentPage(),
+            'search' => $request->search,
+            'order' => $request->order,
+            'dir' => $request->dir,
+            'limit' => $paginator->perPage()
+        ];
     }
 }
