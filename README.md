@@ -122,6 +122,24 @@ extend the `cols` definition in the `DataGrid.vue`:
             )
 ```
 
+## Upgrade from Laravel DataGrid 0.3
+
+Update the vendor assets using --force option:
+
+```php
+php artisan vendor:publish --provider="WdevRs\LaravelDatagrid\LaravelDatagridServiceProvider" --force
+```
+
+Update the usage of the data-grid component to pass the rows property:
+
+```html
+<data-grid
+    base-url={{$baseUrl}}
+    :columns="{{json_encode($columns)}}"
+    :rows="{{json_encode($rows)}}"
+></data-grid>
+```
+
 ### Testing
 
 ``` bash
