@@ -49,16 +49,19 @@ export default {
     },
     computed: {
         search() {
-            return this.serverConfig.search(this.rows.search)
+            let rows = this.rows || {};
+            return this.serverConfig.search(rows.search || '');
         },
         pagination() {
-            return this.serverConfig.pagination(this.rows.currentPage - 1, this.rows.limit)
+            let rows = this.rows || {};
+            return this.serverConfig.pagination((rows.currentPage || 1) - 1, rows.limit || 15);
         },
         sort() {
             return this.serverConfig.sort()
         },
         server() {
-            return this.serverConfig.server(this.rows)
+            let rows = this.rows || {};
+            return this.serverConfig.server(rows);
         }
     },
     mounted() {
