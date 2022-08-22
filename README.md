@@ -18,10 +18,11 @@ You can install the package via composer:
 composer require wdev-rs/laravel-datagrid
 ```
 
-Install the Vue.js integration:
+Install the Vue.js integration 
+(install the 4.0 version, the 5.0 doesn't work with the laravel-datagrid due to a [bug](https://github.com/grid-js/gridjs-vue/issues/427) in gridjs-vue):
 
 ```bash
-npm install gridjs-vue
+npm install gridjs-vue@^4.0.0 
 ```
 
 Publish the vendor files by running
@@ -33,7 +34,7 @@ php artisan vendor:publish --provider="WdevRs\LaravelDatagrid\LaravelDatagridSer
 Register the DataGrid fronted Vue.js component by adding the following line to your `app.js`:
 
 ```javascript
-require('./vendor/laravel-datagrid/laravel-datagrid');
+import './vendor/laravel-datagrid/laravel-datagrid';
 ```
 
 ## Usage
