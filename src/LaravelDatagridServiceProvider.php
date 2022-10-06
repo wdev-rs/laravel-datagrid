@@ -3,6 +3,7 @@
 namespace WdevRs\LaravelDatagrid;
 
 use Illuminate\Support\ServiceProvider;
+use WdevRs\LaravelDatagrid\Console\Commands\MakeDataGrid;
 
 class LaravelDatagridServiceProvider extends ServiceProvider
 {
@@ -45,7 +46,9 @@ class LaravelDatagridServiceProvider extends ServiceProvider
             ], 'lang');*/
 
             // Registering package commands.
-            // $this->commands([]);
+            $this->commands([
+                MakeDataGrid::class,
+            ]);
         }
     }
 
