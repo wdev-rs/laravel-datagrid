@@ -111,8 +111,7 @@ class MakeDataGrid extends \Illuminate\Console\GeneratorCommand
 
             $columns .= "            ->column('{$field}', '{$label}')\n";
         }
-        $columns .= substr($columns, 0, -1).";";
 
-        return $columns;
+        return substr($columns, 0, -1).";";
     }
 }
