@@ -12,7 +12,7 @@ class MakeDataGrid extends \Illuminate\Console\GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'make:datagrid {name} {--M|model=} {--F|fields=}';
+    protected $signature = 'make:datagrid {name} {--M|model=YourModel} {--F|fields=yourfield1,yourfield2}';
 
     /**
      * The console command description.
