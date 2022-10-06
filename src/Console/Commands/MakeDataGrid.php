@@ -43,7 +43,7 @@ class MakeDataGrid extends \Illuminate\Console\GeneratorCommand
 
         $stub = str_replace('DummyDataGrid', $className, $stub);
         $stub = str_replace('DummyModel', $model, $stub);
-        $stub = str_replace("->column();", $this->makeColumns($fields), $stub);
+        $stub = str_replace("            ->column();", $this->makeColumns($fields), $stub);
 
         return $stub;
     }
@@ -105,13 +105,13 @@ class MakeDataGrid extends \Illuminate\Console\GeneratorCommand
         $columns = "";
         foreach (explode(",", $fields) as $field) {
             $label = $field;
-            if (Str::contains($fields, ":")) {
+            if (Str::contains($field, ":")) {
                 list($label, $field) = explode(":", $field);
             }
 
             $columns .= "            ->column('{$field}', '{$label}')\n";
         }
-        $columns .= substr($columns, 0, -2).";";
+        $columns .= substr($columns, 0, -1).";";
 
         return $columns;
     }
