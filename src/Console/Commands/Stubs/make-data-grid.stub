@@ -12,5 +12,7 @@ class DummyDataGrid extends DataGrid
      */
     public function __construct()
     {
+        $this->fromQuery(DummyModel::query())
+            ->column();
     }
 }

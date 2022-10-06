@@ -2,6 +2,7 @@
 
 namespace WdevRs\LaravelDatagrid\Console\Commands;
 
+use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputArgument;
 
 class MakeDataGrid extends \Illuminate\Console\GeneratorCommand
@@ -11,7 +12,7 @@ class MakeDataGrid extends \Illuminate\Console\GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'make:datagrid {name} {--model=} {--fields=}';
+    protected $signature = 'make:datagrid {name} {--M|model=} {--F|fields=}';
 
     /**
      * The console command description.
@@ -36,7 +37,13 @@ class MakeDataGrid extends \Illuminate\Console\GeneratorCommand
      */
     protected function replaceClass($stub, $name): string
     {
-        $stub = parent::replaceClass($stub, $name);
+        $className = $this->argument('name');
+        $model = $this->option("model");
+        $fields = $this->option("fields");
+
+        $stub = str_replace('DummyDataGrid', $className, $stub);
+        $stub = str_replace('DummyModel', $model, $stub);
+        $stub = str_replace("->column();", $this->makeColumns($fields), $stub);
 
         return $stub;
     }
@@ -85,5 +92,28 @@ class MakeDataGrid extends \Illuminate\Console\GeneratorCommand
         return file_exists($customPath = $this->laravel->basePath(trim($stub, '/')))
             ? $customPath
             : __DIR__ . $stub;
+    }
+
+    /**
+     * Make columns
+     *
+     * @param string $fields
+     * @return string
+     */
+    protected function makeColumns(string $fields): string
+    {
+        $columns = "";
+        foreach (explode(",", $fields) as $field) {
+            $columns .= "\n";
+            $label = $field;
+            if (Str::contains($fields, ":")) {
+                list($label, $field) = explode(":", $field);
+            }
+
+            $columns .= "->column('{$field}', '{$label}')";
+        }
+        $columns .= ";";
+
+        return $columns;
     }
 }
