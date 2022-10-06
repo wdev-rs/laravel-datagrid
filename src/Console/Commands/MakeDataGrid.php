@@ -104,15 +104,14 @@ class MakeDataGrid extends \Illuminate\Console\GeneratorCommand
     {
         $columns = "";
         foreach (explode(",", $fields) as $field) {
-            $columns .= "\n";
             $label = $field;
             if (Str::contains($fields, ":")) {
                 list($label, $field) = explode(":", $field);
             }
 
-            $columns .= "->column('{$field}', '{$label}')";
+            $columns .= "            ->column('{$field}', '{$label}')\n";
         }
-        $columns .= ";";
+        $columns .= substr($columns, 0, -2).";";
 
         return $columns;
     }
