@@ -97,6 +97,41 @@ or you can pass your own view and include the DataGrid blade file there:
         return $dataGrid->render('admin.common.index');
     }
 ```
+## Available commands
+###### Code related
+
+- [**make**:datagrid](#make-datagrid) ~  Generates datagrid class
+  ---
+<a name="make-datagrid"/>
+
+## `php artisan make:datagrid <-M|--model> <-F|--fields>`
+
+Generates datagrid class, the generated class is placed in \App\DataGrids directory
+
+- -M|--model name of the model to use
+- -F|--fields the name of the fields of the comma separated: 'field1,field2,field3' or 'field1:label1,field2:label2,field3:label3'
+
+Generated class 
+
+```php
+    class CategoriesDataGrid extends DataGrid
+    {
+    
+        /**
+         * CategoriesDataGrid constructor.
+         */
+        public function __construct()
+        {
+            $this->fromQuery(Category::query())
+                ->column('id', 'ID', null, 50)
+                ->column('name', 'Name')
+        }
+    }
+```
+
+#### Usage example
+
+![php artisan make datagrid command](docs/images/php_artisan_make_datagrid.png)
 
 ## Frontend customisations
 
