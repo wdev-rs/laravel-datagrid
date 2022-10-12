@@ -1,0 +1,19 @@
+<?php
+
+namespace App\DataGrids;
+
+use WdevRs\LaravelDatagrid\DataGrid\DataGrid;
+use App\Models\DummyModel;
+
+class DummyDataGrid extends DataGrid
+{
+
+    /**
+     * DummyDataGrid constructor.
+     */
+    public function __construct()
+    {
+        $this->fromQuery(DummyModel::query())
+            ->column();
+    }
+}
