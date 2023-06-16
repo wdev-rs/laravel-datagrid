@@ -2,6 +2,21 @@
 VERSION 0  INITIAL RELEASE
 ==========================
 
+   Version 0.5 - Laravel 10 compatibility, make command for datagrid classes
+      16/06/2023 09:29  0.5.0  initial release
+         4652d57 Laravel-10-compatibility
+         a1724f7 Update documentation add make:datagrid command #13
+         4d29306 Update documentation add make:datagrid command #13
+         734dbac added use statement to the top of stub for the given model
+         3543296 change fields order from label:field to field:label
+         c6c8512 default options values
+         b4031bc some fixes
+         c05c729 some fixes
+         5e47c1f fix makeColumns method
+         f5dcb15 take params
+         5581292 created make:datagrid command
+         8b9e8af removed .idea folder
+
    Version 0.4 - Laravel 9 compatibility and preload data without ajax
       22/08/2022 19:42  0.4.0  initial release
          968e91b Update README.md
