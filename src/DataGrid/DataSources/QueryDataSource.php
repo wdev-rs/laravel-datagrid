@@ -23,7 +23,9 @@ class QueryDataSource implements DataSourceContract
     {
         $this->query->where(function (Builder $query) use ($search, $columns) {
             foreach ($columns as $column) {
-                $this->query->orWhere($column['id'], 'like', '%' . $search . '%');
+                if ($column['searchable']) {
+                    $this->query->orWhere($column['id'], 'like', '%' . $search . '%');
+                }
             }
         });
     }

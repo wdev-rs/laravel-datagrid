@@ -4,5 +4,6 @@ namespace WdevRs\LaravelDatagrid;
 
 class LaravelDatagrid
 {
-    // Build your next great package.
+    public const RENDER_BLADE = 'blade';
+    public const RENDER_INERTIA = 'inertia';
 }
