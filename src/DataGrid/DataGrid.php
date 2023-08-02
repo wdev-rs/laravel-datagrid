@@ -70,23 +70,22 @@ class DataGrid
             return $this->getData($request);
         }
 
-        return match (config('laravel-datagrid.render_with')) {
-            LaravelDatagrid::RENDER_BLADE => view($view, [
-                'baseUrl' => $request->url(),
-                'columns' => $this->columns,
-                'rows' => $this->getData($request)
-            ]),
-            LaravelDatagrid::RENDER_INERTIA => Inertia::render($view, [
-                'baseUrl' => $request->url(),
-                'columns' => $this->columns,
-                'rows' => $this->getData($request)
-            ]),
-            default => view($view, [
-                'baseUrl' => $request->url(),
-                'columns' => $this->columns,
-                'rows' => $this->getData($request)
-            ])
-        };
+        switch (config('laravel-datagrid.render_with')) {
+            case LaravelDatagrid::RENDER_INERTIA:
+                return Inertia::render($view, [
+                    'baseUrl' => $request->url(),
+                    'columns' => $this->columns,
+                    'rows' => $this->getData($request)
+                ]);
+
+            case LaravelDatagrid::RENDER_BLADE:
+            default:
+                return view($view, [
+                    'baseUrl' => $request->url(),
+                    'columns' => $this->columns,
+                    'rows' => $this->getData($request)
+                ]);
+            };
     }
 
     protected function format($data)
