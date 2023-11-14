@@ -2,6 +2,13 @@
 VERSION 0  INITIAL RELEASE
 ==========================
 
+   Version 0.6 - Rendering with Inertia and Vue3 - Alpha release!
+      14/11/2023 13:45  0.6.0-alpha  Alpha release
+         383ec5c Add inertia components
+         b92d9e9 Fix the search
+         8bbd0ee Use switch instead of match to retain php 7.4 compatibility
+         791ed85 Add config and inertia render
+
    Version 0.5 - Laravel 10 compatibility, make command for datagrid classes
       16/06/2023 09:29  0.5.0  initial release
          4652d57 Laravel-10-compatibility
