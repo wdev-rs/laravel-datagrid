@@ -8,6 +8,7 @@ import PlayIcon from "./Icons/PlayIcon.vue";
 import SecondaryButton from "./SecondaryButton.vue";
 import MassActions from "./MassActions.vue";
 import {ServerConfig} from "../ServerConfig";
+import "../css/datagrid.min.css";
 
 const searchParams = new URLSearchParams(window.location.search);
 
