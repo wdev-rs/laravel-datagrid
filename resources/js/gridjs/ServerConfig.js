@@ -1,4 +1,4 @@
-import {url_append} from "./laravel-datagrid";
+import {url_append} from "./utils";
 export class ServerConfig {
 
     constructor(baseUrl, cols) {
