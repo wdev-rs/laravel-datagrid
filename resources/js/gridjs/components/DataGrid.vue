@@ -1,26 +1,17 @@
 <template>
-    <div class="data-grid">
-        <grid ref="grid"
-              :cols="cols"
-              :search="search"
-              :server="server"
-              :pagination="pagination"
-              :sort="sort"
-              :autoWidth="false">
-        </grid>
+    <div ref="grid" class="data-grid">
     </div>
 </template>
 
 <script lang="js">
-import Grid from 'gridjs-vue';
-import {html, h} from 'gridjs';
+import {html, h, Grid} from 'gridjs';
 import {deleteAction} from "../actions/delete";
 import {ServerConfig} from "../ServerConfig";
+import "gridjs/dist/theme/mermaid.css";
 
 export default {
     name: 'DataGrid',
     components: {
-        Grid
     },
     props: [
         'rows',
@@ -36,7 +27,7 @@ export default {
                 [{
                     name: 'Actions',
                     sort: false,
-                    width: 50,
+                    width: 120,
                     formatter: (cell, row) => {
                         return h('div', {className: "text-center"},
                             deleteAction.call(this, row.cells[0].data, row.cells[1].data)
@@ -65,6 +56,16 @@ export default {
         }
     },
     mounted() {
+        const grid = new Grid({
+            columns: this.cols,
+            server: this.server,
+            search: this.search,
+            sort: this.sort,
+            pagination: this.pagination,
+            autoWidth: false,
+        });
+
+        grid.render(this.$refs.grid);
     },
     methods: {}
 }

@@ -30,10 +30,15 @@ class LaravelDatagridServiceProvider extends ServiceProvider
                 __DIR__.'/../resources/views' => resource_path('views/vendor/laravel-datagrid'),
             ], 'views');
 
-            // Publishing the js.
+            // Publishing the gridjs frontend.
             $this->publishes([
-                __DIR__.'/../resources/js' => resource_path('js/vendor/laravel-datagrid'),
-            ], 'js');
+                __DIR__.'/../resources/js/gridjs' => resource_path('js/vendor/laravel-datagrid/gridjs'),
+            ], 'gridjs');
+
+            // Publishing the datagrid frontend.
+            $this->publishes([
+                __DIR__.'/../resources/js/datagrid' => resource_path('js/vendor/laravel-datagrid/datagrid'),
+            ], 'datagrid');
 
             // Publishing assets.
             /*$this->publishes([
