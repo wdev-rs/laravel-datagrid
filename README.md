@@ -39,7 +39,7 @@ Publish the vendor files by running the following command:
 ```bash
 php artisan vendor:publish --provider="WdevRs\LaravelDatagrid\LaravelDatagridServiceProvider" --tag="gridjs"
 ```
-Register the DataGrid fronted Vue.js component by adding the following line to your `app.js`:
+Register the DataGrid fronted Vue.js component by adding the following lines to your `app.js`:
 
 ```javascript
 import DataGrid from "./vendor/laravel-datagrid/gridjs/Components/DataGrid.vue";
@@ -63,7 +63,7 @@ Use the component in your view file (or in another component):
 php artisan vendor:publish --provider="WdevRs\LaravelDatagrid\LaravelDatagridServiceProvider" --tag="datagrid"
 ```
 
-Register the DataGrid fronted Vue.js component by adding the following line to your `app.js`:
+Register the DataGrid fronted Vue.js component by adding the following lines to your `app.js`:
 
 ```javascript
 import DataGrid from "./vendor/laravel-datagrid/datagrid/Components/DataGrid.vue";
@@ -230,13 +230,13 @@ grid.js, for example mass actions, filters and row action customisations.
 Mass actions is a method to run specific action on multiple records. For example delete
 multiple records at once.
 
-When using mass actions I suggest using datagrid in a wrapper component
+When using mass actions I suggest using datagrid in a wrapper component. 
 Mass actions can be defined using the `mass-actions` prop in an array 
 `[{'action' : 'massDelete', 'label': 'Delete'}]`
 
 Datagrid will fire an event when the user selects rows and runs an action on them.
-The event name is what you define as `action`, in this case massDelete.
-Handle the event on usual way, the handler gets the array of selectedIds as an argument:
+The name of the event is what you defined in the `action` property, in this case `massDelete`.
+Handle the event on the usual way, the handler gets the array of `selectedIds` as an argument:
 
 ```vue
 @massDelete="(selectedIds) => alert('Simulating mass delete on id(s): ' + selectedIds.join(','))"
@@ -283,7 +283,7 @@ php artisan vendor:publish --provider="WdevRs\LaravelDatagrid\LaravelDatagridSer
 php artisan vendor:publish --provider="WdevRs\LaravelDatagrid\LaravelDatagridServiceProvider" --tag="datagrid" --force
 ```
 
-Update the import paths in the app.js to use correct DataGrid compoent (grid.js or datagrid), see the example above.
+Update the import paths in the app.js to use correct DataGrid component (grid.js or datagrid), see the example above.
 
 Update the usage of the data-grid component to pass the rows property:
 
