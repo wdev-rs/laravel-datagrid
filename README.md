@@ -39,16 +39,7 @@ Publish the vendor files by running the following command:
 ```bash
 php artisan vendor:publish --provider="WdevRs\LaravelDatagrid\LaravelDatagridServiceProvider" --tag="gridjs"
 ```
-
-**Using Vue 3 frontend**
-
-```bash
-php artisan vendor:publish --provider="WdevRs\LaravelDatagrid\LaravelDatagridServiceProvider" --tag="datagrid"
-```
-
 Register the DataGrid fronted Vue.js component by adding the following line to your `app.js`:
-
-**Using Grid.js frontend**
 
 ```javascript
 import DataGrid from "./vendor/laravel-datagrid/gridjs/Components/DataGrid.vue";
@@ -65,7 +56,14 @@ Use the component in your view file (or in another component):
 ></data-grid>
 ```
 
-**Using Datagrid frontend**
+
+**Using Datagrid Vue 3 frontend**
+
+```bash
+php artisan vendor:publish --provider="WdevRs\LaravelDatagrid\LaravelDatagridServiceProvider" --tag="datagrid"
+```
+
+Register the DataGrid fronted Vue.js component by adding the following line to your `app.js`:
 
 ```javascript
 import DataGrid from "./vendor/laravel-datagrid/datagrid/Components/DataGrid.vue";
@@ -74,6 +72,7 @@ app.component('data-grid', DataGrid);
 ```
 
 Use the component in your view file (or in another component):
+
 ```html
 <data-grid
     :columns="{{json_encode($columns)}}"
