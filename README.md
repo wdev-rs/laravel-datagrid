@@ -269,6 +269,100 @@ Please find the code of the complete component below.
 
 ```
 
+#### Customising the row actions
+
+DataGrid by default adds 2 row action to all rows: edit and delete.
+You can easily customise these actions using the `actions` slot:
+
+```vue
+    <data-grid
+        :columns="props.columns"
+        :rows="props.rows">
+
+        <template #actions="{row, key}">
+            <div class="flex flex-wrap justify-around">
+                <a :href="'/'+row[key]+'/edit'"
+                   class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-3">
+                    <EditIcon class="fill-blue-600" :title="'Edit'"></EditIcon>
+                </a>
+                <a :href="'/'+row[key]+'/show'"
+                   class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-3">
+                    Show
+                </a>
+                <a :href="'/'+row[key]+'/export'"
+                   class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-3">
+                    Export
+                </a>
+            </div>
+    </template>
+</data-grid>
+```
+
+#### Customising the search
+
+If you'd like to make a more detailed search function instead of the default
+search input field, use the `filters` slot.
+
+```vue
+    <data-grid
+        :columns="props.columns"
+        :rows="props.rows">
+
+    <template #filters>
+        <form  class="p-3 mb-6 rounded bg-gray-50" @submit.prevent="search">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="mx-1">
+                    <InputLabel>Name</InputLabel>
+                    <TextInput
+                        id="name"
+                        v-model="filters.name"
+                        type="text"
+                        class="block w-full mt-1"
+                    />
+                </div>
+                <div class="mx-1">
+                    <InputLabel>Code</InputLabel>
+                    <TextInput
+                        id="name"
+                        v-model="filters.code"
+                        type="text"
+                        class="block w-full mt-1"
+                    />
+                </div>
+            </div>
+            <div class="mt-5 mb-2 ml-1 flex">
+                <PrimaryButton>
+                    {{ __('Search') }}
+                </PrimaryButton>
+                <SecondaryButton class="mx-3" @click="reset">
+                    {{ __('Reset') }}
+                </SecondaryButton>
+            </div>
+        </form>
+    </template>
+</data-grid>
+```
+
+Add your custom logic on the frontend for collecting the data and submitting to the 
+search endpoint. 
+On the backend override the `search` method of the base `DataGrid` class, 
+to implement the custom filtering.
+
+```php
+    public function search(?string $search): DataGrid
+    {
+        $filters = collect(request()->get('filters'));
+
+        $name = $filters->get('name');
+        $barcode = $filters->get('code');
+
+        $this->dataSource->query->when($name, fn ($query) => $query->where('name', 'like', '%'.$name.'%'));
+        $this->dataSource->query->when($code, fn ($query) => $query->where('code', 'like', $code.'%'));
+
+        return $this;
+    }
+```
+
 ## Upgrade from Laravel DataGrid 0.x
 
 Update the vendor assets using --force option:
