@@ -32,6 +32,9 @@ class QueryDataSource implements DataSourceContract
 
     public function sort(?array $orders, ?array $dirs): void
     {
+        // Remove existing, default ordering
+        $this->query->reorder();
+
         collect($orders)->each(fn ($field, $index) => $this->query->orderBy($field, $dirs[$index] ?? 'asc'));
     }
 
