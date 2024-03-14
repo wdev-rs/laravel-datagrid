@@ -3,6 +3,8 @@ VERSION 0  INITIAL RELEASE
 ==========================
 
    Version 0.6 - Rendering with Inertia and Vue3 - Alpha release!
+      14/03/2024 18:25  0.6.1-beta  Clear default order when sorting
+         21a644d Update .rmt.yml
       14/11/2023 13:45  0.6.0-alpha  Alpha release
          383ec5c Add inertia components
          b92d9e9 Fix the search
