@@ -305,12 +305,12 @@ search input field, use the `filters` slot.
 
 ```vue
     <data-grid
-        :columns="props.columns"
-        :rows="props.rows">
-
+    :columns="dataColumns"
+    :rows="dataRows"
+>
     <template #filters>
-        <form  class="p-3 mb-6 rounded bg-gray-50" @submit.prevent="search">
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <form  class="p-3 mb-6 rounded bg-gray-50" @submit.prevent="filter">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="mx-1">
                     <InputLabel>Name</InputLabel>
                     <TextInput
@@ -332,10 +332,10 @@ search input field, use the `filters` slot.
             </div>
             <div class="mt-5 mb-2 ml-1 flex">
                 <PrimaryButton>
-                    {{ __('Search') }}
+                    Search
                 </PrimaryButton>
                 <SecondaryButton class="mx-3" @click="reset">
-                    {{ __('Reset') }}
+                    Reset
                 </SecondaryButton>
             </div>
         </form>
@@ -344,17 +344,70 @@ search input field, use the `filters` slot.
 ```
 
 Add your custom logic on the frontend for collecting the data and submitting to the 
-search endpoint. 
+search endpoint, using the `ServerConfig` class, for example:
+
+```vue
+    <script setup>
+        import {ref} from "vue";
+        import {ServerConfig} from "../vendor/laravel-datagrid/datagrid/ServerConfig";
+        
+        const dataColumns = ref(props.columns);
+        const dataRows = ref(props.rows);
+        
+        const customFilteringEnabled = ref(false);
+        
+        const filters = ref({
+        name: '',
+        code: ''
+        });
+        
+        const server = new ServerConfig();
+
+        const filter = () => {
+            const params = server.params();
+            params.delete('search');
+            params.delete('page');
+            params.delete('limit');
+
+            params.set('filters[name]', filters.value.name);
+            params.set('filters[code]', filters.value.code)
+
+            server.get(params).then((data) => {
+                dataRows.value = data;
+            });
+        };
+
+        const reset = () => {
+            filters.value = {
+                name: '',
+                code: ''
+            };
+
+            const params = server.params();
+            params.delete('filters[name]');
+            params.delete('filters[code]');
+            params.delete('page');
+            params.delete('limit');
+
+            server.get(params).then((data) => {
+                dataRows.value = data;
+            });
+        }
+    </script>
+```
+
 On the backend override the `search` method of the base `DataGrid` class, 
 to implement the custom filtering.
 
 ```php
     public function search(?string $search): DataGrid
     {
+        parent::search($search);
+
         $filters = collect(request()->get('filters'));
 
         $name = $filters->get('name');
-        $barcode = $filters->get('code');
+        $code = $filters->get('code');
 
         $this->dataSource->query->when($name, fn ($query) => $query->where('name', 'like', '%'.$name.'%'));
         $this->dataSource->query->when($code, fn ($query) => $query->where('code', 'like', $code.'%'));
@@ -362,6 +415,11 @@ to implement the custom filtering.
         return $this;
     }
 ```
+
+Please check out the demo application's source code for a more details about how to implement 
+these customisations here: [Laravel DataGrid demo](https://github.com/wdev-rs/laravel-datagrid-demo)
+
+The demo app can be found [here](https://laravel-datagrid.wdev.rs/).
 
 ## Upgrade from Laravel DataGrid 0.x
 

@@ -42,6 +42,9 @@ export default {
         // whenever question changes, this function will run
         selectedIds(selectedIds, oldSelectedIds) {
             this.$emit('rowsSelected', selectedIds);
+        },
+        rows(newRows, oldRows){
+            this.data_rows = newRows;
         }
     },
     methods: {
