@@ -4,7 +4,6 @@ namespace WdevRs\LaravelDatagrid\DataGrid;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
-use Inertia\Inertia;
 use WdevRs\LaravelDatagrid\DataGrid\DataSources\ArrayDataSource;
 use WdevRs\LaravelDatagrid\DataGrid\DataSources\CollectionDataSource;
 use WdevRs\LaravelDatagrid\DataGrid\DataSources\DataSourceContract;
@@ -72,7 +71,7 @@ class DataGrid
 
         switch (config('laravel-datagrid.render_with')) {
             case LaravelDatagrid::RENDER_INERTIA:
-                return Inertia::render($view, [
+                return \Inertia\Inertia::render($view, [
                     'baseUrl' => $request->url(),
                     'columns' => $this->columns,
                     'rows' => $this->getData($request)

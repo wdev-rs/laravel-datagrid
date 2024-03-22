@@ -1,13 +1,12 @@
 <script setup>
 
-import SelectInput from "@/Components/SelectInput.vue";
-import PlayIcon from "@/Components/Icons/PlayIcon.vue";
-import InputLabel from "@/Components/InputLabel.vue";
-import SecondaryButton from "@/Components/SecondaryButton.vue";
+import SelectInput from "./SelectInput.vue";
+import PlayIcon from "./Icons/PlayIcon.vue";
+import InputLabel from "./InputLabel.vue";
+import SecondaryButton from "./SecondaryButton.vue";
 import {ref, defineEmits, computed} from "vue";
-import ConfirmationModal from "@/Components/ConfirmationModal.vue";
-import {useForm} from "@inertiajs/vue3";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
+import ConfirmationModal from "./ConfirmationModal.vue";
+import PrimaryButton from "./PrimaryButton.vue";
 
 const props = defineProps({
     massActions: Array,
@@ -27,7 +26,8 @@ const run = () => {
 };
 
 const confirmingAction = ref(false);
-const form = useForm({});
+// const form = useForm({});
+const form = ref({});
 
 const confirmAction = () => {
     confirmingAction.value = true;
@@ -60,7 +60,7 @@ const selectedActionLabel = computed(() => {
                 >
             </SelectInput>
             <SecondaryButton :disabled="!selectedAction || disabled" @click="confirmAction" class="h-50 mt-1 ml-2 !px-1"
-                             :title="__('Run')">
+                             :title="'Run'">
                 <PlayIcon class="w-8 h-4"></PlayIcon>
             </SecondaryButton>
         </div>
@@ -71,21 +71,19 @@ const selectedActionLabel = computed(() => {
             </template>
 
             <template #content>
-                {{ __('Are you sure you want to run action?') }}
+                Are you sure you want to run action?
             </template>
 
             <template #footer>
                 <SecondaryButton @click="confirmingAction = false">
-                    {{ __('Cancel') }}
+                    Cancel
                 </SecondaryButton>
 
                 <PrimaryButton
                     class="ml-3"
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
                     @click="run"
                 >
-                    {{ __('Run') }}
+                    Run
                 </PrimaryButton>
             </template>
         </ConfirmationModal>

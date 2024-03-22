@@ -1,17 +1,21 @@
-# Laravel integration for the Grid.js
+# LaravelDatagrid
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/wdev-rs/laravel-datagrid.svg?style=flat-square)](https://packagist.org/packages/wdev-rs/laravel-datagrid)
 [![Build Status](https://github.com/wdev-rs/laravel-datagrid/actions/workflows/test.yml/badge.svg)](https://github.com/wdev-rs/laravel-datagrid/actions/workflows/test.yml)
 [![Quality Score](https://img.shields.io/scrutinizer/g/wdev-rs/laravel-datagrid.svg?style=flat-square)](https://scrutinizer-ci.com/g/wdev-rs/laravel-datagrid)
 [![Total Downloads](https://img.shields.io/packagist/dt/wdev-rs/laravel-datagrid.svg?style=flat-square)](https://packagist.org/packages/wdev-rs/laravel-datagrid)
 
-This package is a Laravel integration for the [Grid.js](https://gridjs.io/). The packages makes it easy to create data-grid for your Laravel application, for example admin panel lists.
-It covers the basic server side functionalities for Grid.js like search, sorting and pagination.
+This packages makes it easy to create data-grid for your Laravel application, for example admin panels, or any other 
+searchable and sortable list. This package comes with 2 frontend options:
+- [Grid.js](https://gridjs.io/)
+- DataGrid's own Vue 3 frontend.
+
+Both frontends offer server side functionalities like searching, sorting and pagination.
 
 ![Laravel DataGrid](https://raw.githubusercontent.com/wdev-rs/laravel-datagrid/master/resources/img/laravel-datagrid.png)
 
 ## Demo
-Please find the demo of the application [here](https://laravel-datagrid.wdev.rs) and the source code of the demo application
+Please find a demo application [here](https://laravel-datagrid.wdev.rs) and the source code of the demo application
 [here](https://github.com/wdev-rs/laravel-datagrid-demo);
 
 ## Installation
@@ -22,29 +26,64 @@ You can install the package via composer:
 composer require wdev-rs/laravel-datagrid
 ```
 
-Install the Vue.js integration 
-(install the 4.0 version, the 5.0 doesn't work with the laravel-datagrid due to a [bug](https://github.com/grid-js/gridjs-vue/issues/427) in gridjs-vue):
+Optional - if you use Grid.js install the package with npm
 
 ```bash
-npm install gridjs-vue@^4.0.0 
+npm install gridjs@^6.0.0 
 ```
 
-Publish the vendor files by running
+Publish the vendor files by running the following command:
+
+**Using Grid.js frontend**
 
 ```bash
-php artisan vendor:publish --provider="WdevRs\LaravelDatagrid\LaravelDatagridServiceProvider"
+php artisan vendor:publish --provider="WdevRs\LaravelDatagrid\LaravelDatagridServiceProvider" --tag="gridjs"
 ```
-
-Register the DataGrid fronted Vue.js component by adding the following line to your `app.js`:
+Register the DataGrid fronted Vue.js component by adding the following lines to your `app.js`:
 
 ```javascript
-import './vendor/laravel-datagrid/laravel-datagrid';
+import DataGrid from "./vendor/laravel-datagrid/gridjs/Components/DataGrid.vue";
+
+app.component('data-grid', DataGrid);
+```
+
+Use the component in your view file (or in another component):
+```html
+<data-grid
+    base-url={{$baseUrl}}
+    :columns="{{json_encode($columns)}}"
+    :rows="{{json_encode($rows)}}"
+></data-grid>
+```
+
+
+**Using Datagrid Vue 3 frontend**
+
+```bash
+php artisan vendor:publish --provider="WdevRs\LaravelDatagrid\LaravelDatagridServiceProvider" --tag="datagrid"
+```
+
+Register the DataGrid fronted Vue.js component by adding the following lines to your `app.js`:
+
+```javascript
+import DataGrid from "./vendor/laravel-datagrid/datagrid/Components/DataGrid.vue";
+
+app.component('data-grid', DataGrid);
+```
+
+Use the component in your view file (or in another component):
+
+```html
+<data-grid
+    :columns="{{json_encode($columns)}}"
+    :rows="{{json_encode($rows)}}"
+></data-grid>
 ```
 
 ## Usage
 
 The base of this package is the `\WdevRs\LaravelDatagrid\DataGrid\DataGrid` class. This class is used to define the 
-columns and the behavior of the datagrid. While you can use this class directly from the controller, I'll 
+columns and the behavior of the datagrid. While you can use this class directly from the controller, I 
 suggest extending it and create separate classes for each datagrid.
 
 ``` php
@@ -61,6 +100,7 @@ class CategoriesDataGrid extends DataGrid
             ->column('name', 'Name', function ($category) {
                 return view('admin.categories.actions.edit_link', ['category' => $category])->render();
             })
+            ->key('id')
     }
 }
 ```
@@ -72,6 +112,11 @@ The `column` method is used to define the columns of the DataGrid, the argument 
 - `formatter` - optional, callable allows you to format the display of the column. As you can see from the above example
   probably the most elegant way to do this is to include a blade view and render it.
 - `width` - optional, the with of the column
+- `sortable` - optional, boolean if the column should be sortable, default true
+- `searchable` - optional, boolean if the column should be searchable, default true
+
+The `key` method defines the unique identifier for the rows, usually id. Specifying the
+key is necessary for the mass actions to work when using datagrid frontend.
 
 ### Data sources
 You can create data grid from different data sources:
@@ -89,7 +134,7 @@ When the DataGrid definition is ready, you can add it to the controller:
 ```
 
 If the `render` method is called without arguments it will use the default view `resources/views/vendor/laravel-datagrid/datagrid.blade.php`, 
-or you can pass your own view and include the DataGrid blade file there:
+or you can pass your own view and use the DataGrid there:
 
 ```php
     public function index(CategoriesDataGrid $dataGrid, Request $request)
@@ -97,6 +142,23 @@ or you can pass your own view and include the DataGrid blade file there:
         return $dataGrid->render('admin.common.index');
     }
 ```
+
+If you use Inertia for frontend, you can configire laravel-datagrid to use
+inertia for rendering instead of blade. First publish the config file:
+
+```shell
+php artisan vendor:publish --provider="WdevRs\LaravelDatagrid\LaravelDatagridServiceProvider" --tag="config"
+```
+
+Change the rendering method in the published `config/laravel-datagrid.php`:
+
+```php
+'render_with' => \WdevRs\LaravelDatagrid\LaravelDatagrid::RENDER_INERTIA
+```
+
+Now you can pass the name of the vue component to the `render` method, it 
+is going to be rendered with Inertia.
+
 ## Available commands
 ###### Code related
 
@@ -135,9 +197,11 @@ Generated class
 
 ## Frontend customisations
 
-The frontend component of the DataGrid can be found in the `resources/js/vendor/laravel-datagrid/components/DataGrid.vue`
+### Using Grid.js
+
+The frontend component of the DataGrid can be found in the `resources/js/vendor/laravel-datagrid/gridjs/Components/DataGrid.vue`
 By default DataGrid comes with one row action, which is the delete action. This action can be found in the following file: 
-`resources/js/vendor/laravel-datagrid/actions/delete.js`
+`resources/js/vendor/laravel-datagrid/gridjs/actions/delete.js`
 
 You can extend it with more custom actions by creating them based on the existing one. To add the to the datagrid,
 extend the `cols` definition in the `DataGrid.vue`:
@@ -157,13 +221,221 @@ extend the `cols` definition in the `DataGrid.vue`:
             )
 ```
 
-## Upgrade from Laravel DataGrid 0.3
+### Using Datagrid Vue3
+
+Datagrid's own vue 3 frontend offers extended functionality compared to 
+grid.js, for example mass actions, filters and row action customisations.
+
+#### Mass actions
+Mass actions is a method to run specific action on multiple records. For example delete
+multiple records at once.
+
+When using mass actions I suggest using datagrid in a wrapper component. 
+Mass actions can be defined using the `mass-actions` prop in an array 
+`[{'action' : 'massDelete', 'label': 'Delete'}]`
+
+Datagrid will fire an event when the user selects rows and runs an action on them.
+The name of the event is what you defined in the `action` property, in this case `massDelete`.
+Handle the event on the usual way, the handler gets the array of `selectedIds` as an argument:
+
+```vue
+@massDelete="(selectedIds) => alert('Simulating mass delete on id(s): ' + selectedIds.join(','))"
+```
+
+Please find the code of the complete component below.
+
+```vue
+<script setup>
+    import DataGrid from './../vendor/laravel-datagrid/datagrid/Components/DataGrid.vue'
+
+    const props = defineProps({
+        columns: Array,
+        rows: Object,
+    });
+
+    const alert = (text) => {
+        window.alert(text);
+    }
+</script>
+
+<template>
+    <data-grid
+        :columns="props.columns"
+        :rows="props.rows"
+        :mass-actions="[{'action' : 'massDelete', 'label': 'Delete'}]"
+        @massDelete="(selectedIds) => alert('Simulating mass delete on id(s): ' + selectedIds.join(','))"
+    ></data-grid>
+</template>
+
+```
+
+#### Customising the row actions
+
+DataGrid by default adds 2 row action to all rows: edit and delete.
+You can easily customise these actions using the `actions` slot:
+
+```vue
+    <data-grid
+        :columns="props.columns"
+        :rows="props.rows">
+
+        <template #actions="{row, key}">
+            <div class="flex flex-wrap justify-around">
+                <a :href="'/'+row[key]+'/edit'"
+                   class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-3">
+                    <EditIcon class="fill-blue-600" :title="'Edit'"></EditIcon>
+                </a>
+                <a :href="'/'+row[key]+'/show'"
+                   class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-3">
+                    Show
+                </a>
+                <a :href="'/'+row[key]+'/export'"
+                   class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-3">
+                    Export
+                </a>
+            </div>
+    </template>
+</data-grid>
+```
+
+#### Customising the search
+
+If you'd like to make a more detailed search function instead of the default
+search input field, use the `filters` slot.
+
+```vue
+    <data-grid
+    :columns="dataColumns"
+    :rows="dataRows"
+>
+    <template #filters>
+        <form  class="p-3 mb-6 rounded bg-gray-50" @submit.prevent="filter">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="mx-1">
+                    <InputLabel>Name</InputLabel>
+                    <TextInput
+                        id="name"
+                        v-model="filters.name"
+                        type="text"
+                        class="block w-full mt-1"
+                    />
+                </div>
+                <div class="mx-1">
+                    <InputLabel>Code</InputLabel>
+                    <TextInput
+                        id="name"
+                        v-model="filters.code"
+                        type="text"
+                        class="block w-full mt-1"
+                    />
+                </div>
+            </div>
+            <div class="mt-5 mb-2 ml-1 flex">
+                <PrimaryButton>
+                    Search
+                </PrimaryButton>
+                <SecondaryButton class="mx-3" @click="reset">
+                    Reset
+                </SecondaryButton>
+            </div>
+        </form>
+    </template>
+</data-grid>
+```
+
+Add your custom logic on the frontend for collecting the data and submitting to the 
+search endpoint, using the `ServerConfig` class, for example:
+
+```vue
+    <script setup>
+        import {ref} from "vue";
+        import {ServerConfig} from "../vendor/laravel-datagrid/datagrid/ServerConfig";
+        
+        const dataColumns = ref(props.columns);
+        const dataRows = ref(props.rows);
+        
+        const customFilteringEnabled = ref(false);
+        
+        const filters = ref({
+        name: '',
+        code: ''
+        });
+        
+        const server = new ServerConfig();
+
+        const filter = () => {
+            const params = server.params();
+            params.delete('search');
+            params.delete('page');
+            params.delete('limit');
+
+            params.set('filters[name]', filters.value.name);
+            params.set('filters[code]', filters.value.code)
+
+            server.get(params).then((data) => {
+                dataRows.value = data;
+            });
+        };
+
+        const reset = () => {
+            filters.value = {
+                name: '',
+                code: ''
+            };
+
+            const params = server.params();
+            params.delete('filters[name]');
+            params.delete('filters[code]');
+            params.delete('page');
+            params.delete('limit');
+
+            server.get(params).then((data) => {
+                dataRows.value = data;
+            });
+        }
+    </script>
+```
+
+On the backend override the `search` method of the base `DataGrid` class, 
+to implement the custom filtering.
+
+```php
+    public function search(?string $search): DataGrid
+    {
+        parent::search($search);
+
+        $filters = collect(request()->get('filters'));
+
+        $name = $filters->get('name');
+        $code = $filters->get('code');
+
+        $this->dataSource->query->when($name, fn ($query) => $query->where('name', 'like', '%'.$name.'%'));
+        $this->dataSource->query->when($code, fn ($query) => $query->where('code', 'like', $code.'%'));
+
+        return $this;
+    }
+```
+
+Please check out the demo application's source code for a more details about how to implement 
+these customisations here: [Laravel DataGrid demo](https://github.com/wdev-rs/laravel-datagrid-demo)
+
+The demo app can be found [here](https://laravel-datagrid.wdev.rs/).
+
+## Upgrade from Laravel DataGrid 0.x
 
 Update the vendor assets using --force option:
 
+**Using Grid.js**
 ```php
-php artisan vendor:publish --provider="WdevRs\LaravelDatagrid\LaravelDatagridServiceProvider" --force
+php artisan vendor:publish --provider="WdevRs\LaravelDatagrid\LaravelDatagridServiceProvider" --tag="gridjs" --force
 ```
+
+**Using datagrid frontend**
+```php
+php artisan vendor:publish --provider="WdevRs\LaravelDatagrid\LaravelDatagridServiceProvider" --tag="datagrid" --force
+```
+
+Update the import paths in the app.js to use correct DataGrid component (grid.js or datagrid), see the example above.
 
 Update the usage of the data-grid component to pass the rows property:
 

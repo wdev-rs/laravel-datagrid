@@ -32,7 +32,7 @@ VERSION 0  INITIAL RELEASE
          7926282 #7 Fix if rows are undefined
          5291f19 Add demo to the readme
          a498912 Update README.md
-         8bc3b23 Fix laravel-datagrid.js to work with both webpack and vite
+         8bc3b23 Fix utils.js to work with both webpack and vite
          3e9cfac Don't use global import
          1549139 #9 Make add Laravel 9 support
          ff3602a Make server config non static class
