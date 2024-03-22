@@ -3,7 +3,6 @@
 namespace WdevRs\LaravelDatagrid\DataGrid;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Collection;
 use WdevRs\LaravelDatagrid\DataGrid\DataSources\ArrayDataSource;
 use WdevRs\LaravelDatagrid\DataGrid\DataSources\CollectionDataSource;
