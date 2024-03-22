@@ -20,10 +20,7 @@ const confirmDeletion = () => {
 };
 
 const submitDelete = () => {
-    // router.delete(route(route().current())+'/'+props.row[props.primarykey], {
-    //     errorBag: 'delete',
-    //     onSuccess: () => confirmingDeletion.value = false
-    // });
+    alert('Simulating deleting of row with id='+props.row[props.primarykey]);
 };
 </script>
 
