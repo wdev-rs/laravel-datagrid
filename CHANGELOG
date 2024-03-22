@@ -1,4 +1,10 @@
 
+VERSION 1  SUPPORT 2 DIFFERENT FRONTEND VERSIONS, REMOVE DEPENDENCY OF GRIDJS-VUE
+=================================================================================
+
+   Version 1.0 - Support 2 different frontend versions, remove dependency of gridjs-vue
+      22/03/2024 15:35  1.0.0  initial release
+
 VERSION 0  INITIAL RELEASE
 ==========================
 
