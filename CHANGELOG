@@ -3,6 +3,8 @@ VERSION 1  SUPPORT 2 DIFFERENT FRONTEND VERSIONS, REMOVE DEPENDENCY OF GRIDJS-VU
 =================================================================================
 
    Version 1.0 - Support 2 different frontend versions, remove dependency of gridjs-vue
+      29/04/2024 08:50  1.0.1  Allow override of the render method
+         85b0bae #25 Make datagrid protected
       22/03/2024 15:35  1.0.0  initial release
 
 VERSION 0  INITIAL RELEASE
