@@ -132,7 +132,7 @@ class DataGrid
      * @param $request
      * @return array
      */
-    private function getData($request): array
+    protected function getData($request): array
     {
         $paginator = $this->search($request->search)
             ->sort($request->order, $request->dir)
