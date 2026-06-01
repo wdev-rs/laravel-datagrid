@@ -2,6 +2,10 @@
 VERSION 1  SUPPORT 2 DIFFERENT FRONTEND VERSIONS, REMOVE DEPENDENCY OF GRIDJS-VUE
 =================================================================================
 
+   Version 1.1 - Update laravel compatobility
+      01/06/2026 17:59  1.1.0  initial release
+         14ec2a0 Add support for newer laravel
+
    Version 1.0 - Support 2 different frontend versions, remove dependency of gridjs-vue
       29/04/2024 08:50  1.0.1  Allow override of the render method
          85b0bae #25 Make datagrid protected
