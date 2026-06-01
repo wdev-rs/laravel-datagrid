@@ -115,7 +115,7 @@ class DataGridTest extends TestCase
         $this->assertEquals(100, $result['total']);
     }
 
-    public function provideDataSources() {
+    public static function provideDataSources() {
         return [
             ['query'],
             ['collection'],
